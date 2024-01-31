@@ -42,34 +42,41 @@ header .navbar {
 }
 
 .navbar a {
-  color: #fff;
+  color: #FFA500;
   text-decoration: none;
   transition: 0.2s ease;
 }
 
 .navbar a:hover {
-  color: #C06B3E;
+  background-color: #0336FF;
+  padding:5px;
+  margin: 5px;
+  border-radius:10%;
 }
 
 .hero-section {
-  height: 100vh;
-  background-image: url("https://www.codingnepalweb.com/demos/create-responsive-coffee-website-html-css/hero-bg.jpg");
+  height: 70vh;
+  background-image: url("../storage/images/bg1.png");
   background-position: center;
   background-size: cover;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 20px;
 }
 
 .hero-section .content {
   max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+align-items: center;
   margin: 0 auto;
   width: 100%;
   color: #fff;
 }
 
 .hero-section .content h2 {
-  font-size: 3rem;
+  font-size: 1.25rem;
   max-width: 600px;
   line-height: 70px;
 }
@@ -81,7 +88,9 @@ header .navbar {
 }
 
 .hero-section .content button {
-  background: #fff;
+  background: #0336FF;
+  width: 150px;
+  height: 70px;
   padding: 12px 30px;
   border: none;
   font-size: 1rem;
@@ -94,7 +103,7 @@ header .navbar {
 
 .hero-section .content button:hover {
   color: #fff;
-  background: #C06B3E;
+  background: #0020a0;
 }
 
 #close-menu-btn {
