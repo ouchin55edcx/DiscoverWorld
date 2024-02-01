@@ -90,35 +90,30 @@
     </section>
     <!-- Adventure Cards Section -->
     <div class="grid gap-12 sm:grid-cols-2 ml-12 lg:grid-cols-2 ">
-    @foreach ($adventures as $adventure)
+<!-- Destination.blade.php -->
+
+@foreach($adventures as $adventure)
     <article class="mb-4 break-inside break-inside-avoid rounded-xl bg-gray-200 flex flex-col bg-clip-border w-[90%] p-5">
         <!-- Date, Title, and Destination -->
         <div class="pb-6">
             <div class="text-slate-500 mb-2">
-            {{ $adventure['created_at']}}
-
+                {{ \Carbon\Carbon::parse($adventure['created_at'])->format('F j, Y') }}
             </div>
             <h2 class="text-3xl font-extrabold">
                 {{ $adventure['title'] }}
             </h2>
             <div class="text-gray-600">
-            placeName: {{ $adventure['placeName'] }}
-            </div>
-            <div class="text-gray-600">
-                Destination: {{ $adventure['country'] }}
+                Destination: {{ $adventure['placeName'] }}
             </div>
         </div>
 
         <!-- Adventure Images -->
         <div class="py-4">
-            <div class="flex justify-between gap-1 mb-1">
-                @foreach ($adventure['photos'] as $photo)
-                    <a class="flex" href="#">
-                        <img class="max-w-full rounded-tl-lg"
-                            src="{{ asset($photo['url']) }}" alt="Adventure Photo">
-                    </a>
-                @endforeach
-            </div>
+            @foreach($adventure['photos'] as $photo)
+                <a class="flex" href="#">
+                    <img class="max-w-full" src="{{ asset($photo['url']) }}" />
+                </a>
+            @endforeach
         </div>
 
         <!-- Tips Input -->
@@ -137,6 +132,7 @@
 
         <!-- Adventure Details -->
         <div class="py-4">
+            <!-- Add more details as needed -->
             <a class="inline-flex items-center" href="#">
                 <span class="mr-2">
                     <svg class="fill-rose-600" style="width: 24px; height: 24px;" viewBox="0 0 24 24">
@@ -144,11 +140,12 @@
                         </path>
                     </svg>
                 </span>
-                <span class="text-lg font-bold">{{ count($adventure['photos']) }}</span>
+                <span class="text-lg font-bold">34</span>
             </a>
         </div>
     </article>
 @endforeach
+
 
 
 

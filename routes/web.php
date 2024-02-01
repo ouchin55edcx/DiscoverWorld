@@ -15,13 +15,12 @@ use App\Http\Controllers\AdvanturController;
 
 Route::get('/', [AdvanturController::class,'index']);
 
-Route::get('/Destination', function () {
-    return view('Destination');
-})->name('Destination');
+Route::get('/Destination', [AdvanturController::class, 'showAllAdventures'])->name('Destination');
+
 
 Route::get('/Add_Adventure', function () {
     return view('Add_Adventure');
 })->name('Add_Adventure');
-Route::post('/submit', [AdventureController::class, 'submitAdventure']);
+Route::post('/submit', [AdventurController::class, 'submitAdventure']);
 
 // Route::get([AdvanturController::class,'index']); 
