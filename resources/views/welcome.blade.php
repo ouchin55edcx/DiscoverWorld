@@ -16,6 +16,7 @@
     </section>
 
 
+
     <section clas   s="container flex flex-col items-center justify-center ">
         <div class="">
             <div class="relative bg-cover bg-center m-12"
@@ -101,7 +102,10 @@
                 {{ $adventure['title'] }}
             </h2>
             <div class="text-gray-600">
-                Destination: {{ $adventure['placeName'] }}
+            placeName: {{ $adventure['placeName'] }}
+            </div>
+            <div class="text-gray-600">
+                Destination: {{ $adventure['country'] }}
             </div>
         </div>
 

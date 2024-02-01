@@ -14,16 +14,30 @@ class AdvanturController extends Controller
      */
     public function index()
     {
-        // Retrieve all adventures with their associated photos
-        $adventuresWithPhotos = Adventure::with('photos')->get();
+        // Retrieve all adventures with their associated destination details and photos using joins
+        $adventuresWithDestinationAndPhotos = Adventure::with('photos')
+            ->join('destinations', 'adventures.destination_id', '=', 'destinations.id')
+            ->select('adventures.*', 'destinations.*')
+            ->get();
     
-        // Convert the adventures collection to an array
-        $adventuresArray = $adventuresWithPhotos->toArray();
+        // Dump and die to inspect the result
+        // dd($adventuresWithDestinationAndPhotos);    
+    
+        // If you want to continue with passing data to the view, you can do so after the dd() statement
+        $adventuresArray = $adventuresWithDestinationAndPhotos->toArray();
     
         // Pass the data to the view
         return view('welcome', ["adventures" => $adventuresArray]);
     }
     
+    
+    
+    
+
+    
+    
+    
+     
     
     
     
