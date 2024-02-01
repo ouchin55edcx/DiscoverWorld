@@ -30,7 +30,7 @@
             <!-- Logo -->
             <div class="flex gap-6">
                 <div class="flex items-center mb-2 md:mb-0">
-                    <a href="{{route('Welcome')}}"><img src="storage/images/Logo.png" class="w-20 h-15 mr-25"></a>
+                    <a href="/"><img src="storage/images/Logo.png" class="w-20 h-15 mr-25"></a>
                 </div>
 
                 <!-- Navigation -->

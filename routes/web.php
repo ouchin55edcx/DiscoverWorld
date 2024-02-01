@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdvanturController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('Welcome');
+Route::get('/', [AdvanturController::class,'index']);
 
 Route::get('/Destination', function () {
     return view('Destination');
@@ -24,3 +22,6 @@ Route::get('/Destination', function () {
 Route::get('/Add_Adventure', function () {
     return view('Add_Adventure');
 })->name('Add_Adventure');
+Route::post('/submit', [AdventureController::class, 'submitAdventure']);
+
+// Route::get([AdvanturController::class,'index']); 
