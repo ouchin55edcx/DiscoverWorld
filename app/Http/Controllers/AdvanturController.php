@@ -33,18 +33,28 @@ class AdvanturController extends Controller
         return view('welcome', ["adventures" => $adventuresArray]);
     }
 
-    public function showAllAdventures()
+
+
+
+    public function showAllAdventures($sort = null)
     {
-        // Retrieve all adventures with their associated destination details and photos using eager loading
-        $adventures = Adventure::with(['destination', 'photos'])
-            ->get();
+        $sort = $sort ?? 'All';
     
-        // Debugging statement
-        // dd($adventures->count());
+        $adventuresQuery = Adventure::with(['destination', 'photos']);
     
-        // Pass the data to the view
-        return view('Destination', ["adventures" => $adventures]);
+        if ($sort == 'Récentes') {
+            $adventuresQuery->orderBy('created_at', 'asc');
+        } elseif ($sort == 'Anciennes') {
+            $adventuresQuery->orderBy('created_at', 'desc');
+        }
+    
+        $adventures = $adventuresQuery->get();
+    
+        return view('Destination', ["adventures" => $adventures, "sort" => $sort]);
     }
+    
+    
+    
     
     
     

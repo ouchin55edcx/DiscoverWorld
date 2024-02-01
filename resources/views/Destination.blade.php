@@ -43,12 +43,14 @@
 
         </div>
         <div>
-            <select id="pricingType" name="pricingType"
-                class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
-                <option value="All" selected="">All</option>
-                <option value="Récentes">Récentes</option>
-                <option value="Anciennes">Anciennes</option>
-            </select>
+        <select id="pricingType" name="pricingType" class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
+    <option value="All" {{ isset($sort) && $sort == 'All' ? 'selected' : '' }}>All</option>
+    <option value="Récentes" {{ isset($sort) && $sort == 'Récentes' ? 'selected' : '' }}>Récentes</option>
+    <option value="Anciennes" {{ isset($sort) && $sort == 'Anciennes' ? 'selected' : '' }}>Anciennes</option>
+</select>
+
+
+
         </div>
 
     </div>
@@ -120,4 +122,5 @@
 
 
     </div>  
+    <script src="js/landing.js"></script>
 @endsection
