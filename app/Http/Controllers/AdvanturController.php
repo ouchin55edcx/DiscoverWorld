@@ -24,13 +24,13 @@ class AdvanturController extends Controller
     
         $adventuresPerDestination = Destination::withCount('adventures')->get();
 
-        $limitedAdventuresWithDestinationAndLimitedPhotos =
-            cache()->remember(
-                "adventure_id",
-                30,
-                fn () =>
-                $limitedAdventuresWithDestinationAndLimitedPhotos
-            );
+        // $limitedAdventuresWithDestinationAndLimitedPhotos =
+            // cache()->remember(
+            //     "adventure_id",
+            //     30,
+            //     fn () =>
+            //     $limitedAdventuresWithDestinationAndLimitedPhotos
+            // );
         return view('welcome', [
             "adventures" => $limitedAdventuresWithDestinationAndLimitedPhotos,
             'totalAdventures' => $totalAdventures,
