@@ -26,7 +26,7 @@
     <form action="{{ route('filterByDestination') }}" method="post" class="flex flex-auto justify-evenly border rounded-md w-full dark:border-gray-600/60 dark:text-white">
     @csrf
     <select name="destination" id="destination" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
-        <option value="all">All</option>
+        <option value="all">select destination</option>
         @foreach ($Destinations as $destination)
             <option value="{{ $destination->id }}">
                 {{ $destination->country }}

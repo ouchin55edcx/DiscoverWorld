@@ -2,17 +2,6 @@
 @section('content')
 
 
-
-
-
-
-
-
-
-
-
-
-
 {{$errors}}
         <div class="bg-white shadow p-4 py-8 flex-col" x-data="{ images: [], selectedDestination: '' }">
             <div class="heading text-center font-bold text-2xl m-5 text-gray-800 bg-white">New Post</div>
@@ -42,11 +31,14 @@
             
             <!-- Select Destination -->
             <label class="block mb-2 text-gray-800" for="destination">Destination:</label>
-            <select x-model="selectedDestination" name="destination_id" class="w-full p-2 border rounded">
-                <option value="" disabled>Select destination</option>
-                <option value="6">Paris</option>
-               
-            </select>
+            <select name="destination_id" id="destination" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
+            <option value="all">select option</option>
+            @foreach ($destinations as $destination)
+                <option value="{{ $destination->id }}">
+                    {{ $destination->country }}
+            </option>
+        @endforeach
+    </select>
             @error('destination')
             <p class="text-red-500">{{ $message }}</p>
             @enderror

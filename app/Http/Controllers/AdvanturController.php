@@ -14,13 +14,9 @@ class AdvanturController extends Controller
      */
     public function index()
     {
-        $limitedAdventuresWithDestinationAndLimitedPhotos = Adventure::with(['photos' => function ($query) {
-                $query->take(3); 
-            }])
-            ->join('destinations', 'adventures.destination_id', '=', 'destinations.id')
-            ->select('adventures.*', 'destinations.*')
-            ->take(3)
-            ->get();
+        $limitedAdventuresWithDestinationAndLimitedPhotos = Adventure::with('photos')
+        ->latest('adventures.created_at')
+            ->limit(3)->get();
     
         $totalAdventures = Adventure::count();
     
@@ -30,7 +26,7 @@ class AdvanturController extends Controller
 
 
         return view('welcome', [
-            "adventures" => $limitedAdventuresWithDestinationAndLimitedPhotos->toArray(),
+            "adventures" => $limitedAdventuresWithDestinationAndLimitedPhotos,
             'totalAdventures' => $totalAdventures,
             'totalDestinations' => $totalDestinations,
             'adventuresPerDestination' => $adventuresPerDestination,
@@ -62,7 +58,7 @@ class AdvanturController extends Controller
 
     public function DisplayCountry(){
         $destinations = Destination::all();
-        // dd($$destinations);
+        // dd($destinations);   
         return view('Add_Adventure', ['destinations' => $destinations]);
     }
     
@@ -72,9 +68,7 @@ class AdvanturController extends Controller
     {
         $selectedDestinationId = $request->input('destination');
     
-        $adventuresQuery = Adventure::with(['photos' => function ($query) {
-            $query->take(3);
-        }]);
+        $adventuresQuery = Adventure::with('photos');
     
         if ($selectedDestinationId) {
             $adventuresQuery->where('destination_id', $selectedDestinationId);
@@ -83,6 +77,7 @@ class AdvanturController extends Controller
         $filteredAdventures = $adventuresQuery->get();
     
         return view('Destination', [
+            "Destinations" => Destination::all(),
             'adventures' => $filteredAdventures,
             'selectedDestinationId' => $selectedDestinationId,
         ]);
