@@ -75,7 +75,30 @@ class AdvanturController extends Controller
     }
 
 
+    public function filterByDestination(Request $request)
+    {
+        // Get the selected destination ID from the request
+        $selectedDestinationId = $request->input('destination');
     
+        // Build the query to fetch adventures
+        $adventuresQuery = Adventure::with(['photos' => function ($query) {
+            $query->take(3); // Limit the number of photos to 3
+        }]);
+    
+        // If a destination is selected, filter by the destination
+        if ($selectedDestinationId) {
+            $adventuresQuery->where('destination_id', $selectedDestinationId);
+        }
+    
+        // Fetch adventures
+        $filteredAdventures = $adventuresQuery->get();
+    
+        // Pass the filtered adventures and selected destination ID to the view
+        return view('Destination', [
+            'adventures' => $filteredAdventures,
+            'selectedDestinationId' => $selectedDestinationId,
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

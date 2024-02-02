@@ -16,7 +16,7 @@ use App\Http\Controllers\AdvanturController;
 Route::get('/', [AdvanturController::class,'index']);
 
 Route::get('/Destination/{sort?}', [AdvanturController::class, 'showAllAdventures'])->name('Destination');
-
+Route::post('/filterByDestination', [AdvanturController::class, 'filterByDestination'])->name('filterByDestination');
 
 Route::get('/Add_Adventure', function () {
     return view('Add_Adventure');
