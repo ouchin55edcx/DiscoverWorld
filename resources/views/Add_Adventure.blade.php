@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 @section('content')
 
-
-{{$errors}}
         <div class="bg-white shadow p-4 py-8 flex-col" x-data="{ images: [], selectedDestination: '' }">
             <div class="heading text-center font-bold text-2xl m-5 text-gray-800 bg-white">New Post</div>
             <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
