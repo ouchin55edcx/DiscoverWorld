@@ -16,21 +16,40 @@ class AdvanturController extends Controller
     {
         // Retrieve limited adventures with their associated destination details and limited photos using joins
         $limitedAdventuresWithDestinationAndLimitedPhotos = Adventure::with(['photos' => function ($query) {
-                $query->take(3);
+                $query->take(3); // Limit the number of photos to 3
             }])
             ->join('destinations', 'adventures.destination_id', '=', 'destinations.id')
             ->select('adventures.*', 'destinations.*')
-            ->take(3)
+            ->take(3) // Limit the number of adventures to 3
             ->get();
     
+        // Count the total number of adventures
+        $totalAdventures = Adventure::count();
+    
+        // Count the total number of destinations
+        $totalDestinations = Destination::count();
+    
+        // Get the number of adventures per destination
+        $adventuresPerDestination = Destination::withCount('adventures')->get();
+    
         // Dump and die to inspect the result
-        // dd($limitedAdventuresWithDestinationAndLimitedPhotos);
-        // If you want to continue with passing data to the view, you can do so after the dd() statement
-        $adventuresArray = $limitedAdventuresWithDestinationAndLimitedPhotos->toArray();
+        // dd([
+        //     'limitedAdventures' => $limitedAdventuresWithDestinationAndLimitedPhotos->toArray(),
+        //     'totalAdventures' => $totalAdventures,
+        //     'totalDestinations' => $totalDestinations,
+        //     'adventuresPerDestination' => $adventuresPerDestination,
+        // ]);
     
         // Pass the data to the view
-        return view('welcome', ["adventures" => $adventuresArray]);
+        return view('welcome', [
+            "adventures" => $limitedAdventuresWithDestinationAndLimitedPhotos->toArray(),
+            'totalAdventures' => $totalAdventures,
+            'totalDestinations' => $totalDestinations,
+            'adventuresPerDestination' => $adventuresPerDestination,
+        ]);
     }
+    
+    
 
 
 
@@ -51,27 +70,11 @@ class AdvanturController extends Controller
         }
     
         $adventures = $adventuresQuery->get();
-        // dd($adventures); // Commented out the debug statement (dd) for better readability
+        // dd($adventures); 
         return view('Destination', ["adventures" => $adventures, "sort" => $sort]);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
-    
-    
-     
-    
-    
+
     
 
     /**

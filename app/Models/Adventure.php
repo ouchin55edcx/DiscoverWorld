@@ -23,5 +23,6 @@ class Adventure extends Model
     {
         return $this->hasMany(Photo::class);
     }
+
 }
 
