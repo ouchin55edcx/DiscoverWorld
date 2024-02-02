@@ -18,31 +18,33 @@
         go? 
       </p>
     </div>
-</div>
+</div >
 
     <div class="flex gap-12 w-full  max-w-2xl mx-auto m-5">
 
     <div class="flex gap-12 w-full max-w-2xl mx-auto m-5">
     <form action="{{ route('filterByDestination') }}" method="post" class="flex flex-auto justify-evenly border rounded-md w-full dark:border-gray-600/60 dark:text-white">
-    @csrf
-    <select name="destination" id="destination" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
-        <option value="all">select destination</option>
-        @foreach ($Destinations as $destination)
-            <option value="{{ $destination->id }}">
-                {{ $destination->country }}
-            </option>
-        @endforeach
-    </select>
-    <button type="submit" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-white bg-blue-500">Search</button>
-</form>
+        @csrf
+        <select name="destination" id="destination" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
+            <option value="all">select destination</option>
+            @foreach ($Destinations as $destination)
+                <option value="{{ $destination->id }}">
+                    {{ $destination->country }}
+                </option>
+            @endforeach
+        </select>
+        <button type="submit" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-white bg-blue-500">Search</button>
+    </form>
 
-</div>
-
-        <select id="pricingType" name="pricingType" class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
+    <select id="pricingType" name="pricingType" class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
             <option value="All" {{ isset($sort) && $sort == 'All' ? 'selected' : '' }}>All</option>
             <option value="Récentes" {{ isset($sort) && $sort == 'Récentes' ? 'selected' : '' }}>Récentes</option>
             <option value="Anciennes" {{ isset($sort) && $sort == 'Anciennes' ? 'selected' : '' }}>Anciennes</option>
         </select>
+
+    </div>
+
+        
 
 
     </div>
