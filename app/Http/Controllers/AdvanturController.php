@@ -25,7 +25,6 @@ class AdvanturController extends Controller
     
         // Dump and die to inspect the result
         // dd($limitedAdventuresWithDestinationAndLimitedPhotos);
-    
         // If you want to continue with passing data to the view, you can do so after the dd() statement
         $adventuresArray = $limitedAdventuresWithDestinationAndLimitedPhotos->toArray();
     
@@ -40,18 +39,22 @@ class AdvanturController extends Controller
     {
         $sort = $sort ?? 'All';
     
-        $adventuresQuery = Adventure::with(['destination', 'photos']);
+        $adventuresQuery = Adventure::with(['photos' => function ($query) {
+                $query->take(3);
+            }])
+            ->join('destinations', 'adventures.destination_id', '=', 'destinations.id');
     
         if ($sort == 'Récentes') {
-            $adventuresQuery->orderBy('created_at', 'asc');
+            $adventuresQuery->orderBy('adventures.created_at', 'desc');
         } elseif ($sort == 'Anciennes') {
-            $adventuresQuery->orderBy('created_at', 'desc');
+            $adventuresQuery->orderBy('adventures.created_at', 'asc');
         }
     
         $adventures = $adventuresQuery->get();
-    
+        // dd($adventures); // Commented out the debug statement (dd) for better readability
         return view('Destination', ["adventures" => $adventures, "sort" => $sort]);
     }
+    
     
     
     
