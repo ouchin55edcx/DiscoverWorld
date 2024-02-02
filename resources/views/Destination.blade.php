@@ -19,39 +19,23 @@
 
     <div class="flex gap-12 w-full  max-w-2xl mx-auto m-5">
 
-        <div class="flex flex-auto justify-evenly border rounded-md w-full dark:border-gray-600/60 dark:text-white">
+    <form action="{{ route('Destination') }}" method="get" class="flex flex-auto justify-evenly border rounded-md w-full dark:border-gray-600/60 dark:text-white">
+        <select name="destination" id="destination" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
+            @foreach ($adventures as $adventure)
+                <option value="{{ $adventure->destination->id }}">
+                    {{ $adventure->destination->country }}
+                </option>
+            @endforeach
+        </select>
+        <button type="submit" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-white bg-blue-500">Search</button>
+    </form>
 
-            <button class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
-                <input type="radio" class="hidden" id="searchMCQs">
-                <label class="cursor-pointer" for="searchMCQs">MCQs</label>
-            </button>
-
-            <button class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
-                <input type="radio" class="hidden" id="searchTopics">
-                <label class="cursor-pointer" for="searchTopics">Topics</label>
-            </button>
-
-            <button class="focus:bg-blue-600  px-2 py-1 rounded-md w-full text-black">
-                <input type="radio" class="hidden" id="searchChapters">
-                <label class="cursor-pointer" for="searchChapters">Chapters</label>
-            </button>
-
-            <button class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
-                <input type="radio" class="hidden" id="searchCourses">
-                <label class="cursor-pointer" for="searchCourses">Courses</label>
-            </button>
-
-        </div>
-        <div>
         <select id="pricingType" name="pricingType" class="w-full h-10 border-2 border-sky-500 focus:outline-none focus:border-sky-500 text-sky-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider">
     <option value="All" {{ isset($sort) && $sort == 'All' ? 'selected' : '' }}>All</option>
     <option value="Récentes" {{ isset($sort) && $sort == 'Récentes' ? 'selected' : '' }}>Récentes</option>
     <option value="Anciennes" {{ isset($sort) && $sort == 'Anciennes' ? 'selected' : '' }}>Anciennes</option>
 </select>
 
-
-
-        </div>
 
     </div>
 

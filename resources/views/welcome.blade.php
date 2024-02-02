@@ -15,16 +15,6 @@
         </div>
     </section>
 
-<!-- Display Total Adventures -->
-
-
-<!-- Display Total Destinations -->
-
-
-<!-- Display Adventures per Destination -->
-
-
-
     <section clas   s="container flex flex-col items-center justify-center ">
         <div class="">
             <div class="relative bg-cover bg-center m-12"
@@ -55,15 +45,6 @@
                                 </p>
 
                                 <div class="grid md:grid-cols-3 lg:gap-x-12">
-                                    <div class="mb-12 md:mb-0">
-                                        <h2 class="mb-4 text-3xl font-bold text-primary dark:text-primary-400">
-                                            1000
-                                        </h2>
-                                        <h5 class="mb-0 text-lg font-medium text-neutral-500 dark:text-neutral-300">
-                                            Happy customers
-                                        </h5>
-                                    </div>
-
                                     <div class="mb-12 md:mb-0">
                                         <h2 class="mb-4 text-3xl font-bold text-primary dark:text-primary-400">
                                         {{ $totalAdventures }}
