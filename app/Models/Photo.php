@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Photo extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'url', 'adventure_id'
+    ];
 
     // Define the inverse relationship if needed
     public function adventure()

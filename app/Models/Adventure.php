@@ -12,6 +12,7 @@ class Adventure extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'images' => 'array',
     ];
 
     public function destination()
@@ -21,8 +22,12 @@ class Adventure extends Model
 
     public function photos()
     {
-        return $this->hasMany(Photo::class);
+        return $this->hasMany(Photo::class,"adventure_id");
     }
 
+    protected $fillable = [
+        'title', 'description','placeName', 'tips', 'destination_id', 'images',
+    ];
 }
+
 

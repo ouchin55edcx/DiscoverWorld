@@ -3,6 +3,8 @@
 @section('content')
 
 
+
+
     <section class=" py-16 md:py-32"
         style="background-image: url('storage/images/bg1.png'); background-size: cover; background-position: center;">
         <div class="container mx-auto px-4 md:px-8 text-center">
@@ -68,8 +70,6 @@
                     </div>
                 </div>
             </div>
-
-
             <h2 class="mb-4 text-4xl font-extrabold leading-tight text-gray-800 mt-8 text-center">Destinations les plus
                 populaires</h2>
             <p class="mb-8 text-lg text-center text-gray-700">Lorem Ipsum is simply dummy text of the printing and

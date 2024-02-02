@@ -1,13 +1,16 @@
 @extends('layouts.layout')
 
 @section('content')
+
+
+
+
 <section class="bg-white dark:bg-gray-900 " style="background-image: url('storage/images/dest.png'); background-size: cover; object-fit: cover; width: 100%;  ">
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
         <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">We invest in the world’s potential</h1>
         <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
     </div>
 </section>
-
 <div class="relative bg-cover bg-center m-12" style="background-image: url('storage/images/about1.png'); height: 150px; width:400px;">
     <div class="absolute inset-0 flex items-center justify-center">
       <p class="text-gray-500 text-bold text-4xl text-center">
@@ -24,9 +27,9 @@
     @csrf
     <select name="destination" id="destination" class="focus:bg-blue-600 border-none px-2 py-1 rounded-md w-full text-black">
         <option value="all">All</option>
-        @foreach ($adventures as $adventure)
-            <option value="{{ $adventure->destination->id }}">
-                {{ $adventure->destination->country }}
+        @foreach ($Destinations as $destination)
+            <option value="{{ $destination->id }}">
+                {{ $destination->country }}
             </option>
         @endforeach
     </select>
@@ -68,6 +71,15 @@
             <!-- Adventure Images -->
             <div class="py-4">
                 <div class="flex justify-between gap-1 mb-1">
+
+
+
+
+
+
+
+
+             
                     @foreach ($adventure['photos'] as $photo)
                         <a class="flex" href="#">
                             <img class="max-w-full rounded-tl-lg"

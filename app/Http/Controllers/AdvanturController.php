@@ -14,90 +14,120 @@ class AdvanturController extends Controller
      */
     public function index()
     {
-        // Retrieve limited adventures with their associated destination details and limited photos using joins
         $limitedAdventuresWithDestinationAndLimitedPhotos = Adventure::with(['photos' => function ($query) {
-                $query->take(3); // Limit the number of photos to 3
+                $query->take(3); 
             }])
             ->join('destinations', 'adventures.destination_id', '=', 'destinations.id')
             ->select('adventures.*', 'destinations.*')
-            ->take(3) // Limit the number of adventures to 3
+            ->take(3)
             ->get();
     
-        // Count the total number of adventures
         $totalAdventures = Adventure::count();
     
-        // Count the total number of destinations
         $totalDestinations = Destination::count();
     
-        // Get the number of adventures per destination
         $adventuresPerDestination = Destination::withCount('adventures')->get();
-    
-        // Dump and die to inspect the result
-        // dd([
-        //     'limitedAdventures' => $limitedAdventuresWithDestinationAndLimitedPhotos->toArray(),
-        //     'totalAdventures' => $totalAdventures,
-        //     'totalDestinations' => $totalDestinations,
-        //     'adventuresPerDestination' => $adventuresPerDestination,
-        // ]);
-    
-        // Pass the data to the view
+
+
         return view('welcome', [
             "adventures" => $limitedAdventuresWithDestinationAndLimitedPhotos->toArray(),
             'totalAdventures' => $totalAdventures,
             'totalDestinations' => $totalDestinations,
             'adventuresPerDestination' => $adventuresPerDestination,
+            
         ]);
     }
     
-    
-
-
-
-
-    public function showAllAdventures($sort = null)
+    public function showAllAdventures($sort  = null)
     {
         $sort = $sort ?? 'All';
     
-        $adventuresQuery = Adventure::with(['photos' => function ($query) {
-                $query->take(3);
-            }])
-            ->join('destinations', 'adventures.destination_id', '=', 'destinations.id');
+        $adventuresQuery = Adventure::with('photos','destination');
     
         if ($sort == 'Récentes') {
-            $adventuresQuery->orderBy('adventures.created_at', 'desc');
+            $adventuresQuery->orderByDesc('adventures.created_at');
         } elseif ($sort == 'Anciennes') {
-            $adventuresQuery->orderBy('adventures.created_at', 'asc');
+            $adventuresQuery->orderBy('adventures.created_at');
         }
     
-        $adventures = $adventuresQuery->get();
-        // dd($adventures); 
-        return view('Destination', ["adventures" => $adventures, "sort" => $sort]);
+        $adventuresQuery = $adventuresQuery->get();
+       
+        
+        return view('Destination', [
+            "adventures" => $adventuresQuery,
+             "sort" => $sort,
+             "Destinations" => Destination::all(),
+            ]);
     }
+
+    public function DisplayCountry(){
+        $destinations = Destination::all();
+        // dd($$destinations);
+        return view('Add_Adventure', ['destinations' => $destinations]);
+    }
+    
 
 
     public function filterByDestination(Request $request)
     {
-        // Get the selected destination ID from the request
         $selectedDestinationId = $request->input('destination');
     
-        // Build the query to fetch adventures
         $adventuresQuery = Adventure::with(['photos' => function ($query) {
-            $query->take(3); // Limit the number of photos to 3
+            $query->take(3);
         }]);
     
-        // If a destination is selected, filter by the destination
         if ($selectedDestinationId) {
             $adventuresQuery->where('destination_id', $selectedDestinationId);
         }
     
-        // Fetch adventures
         $filteredAdventures = $adventuresQuery->get();
     
-        // Pass the filtered adventures and selected destination ID to the view
         return view('Destination', [
             'adventures' => $filteredAdventures,
             'selectedDestinationId' => $selectedDestinationId,
         ]);
+    }
+    // public function getAllDestinations()
+    // {
+    //     $destinations = Destination::all();
+
+
+
+    //     return view('Destination', ['destinations' => $destinations]);
+    // }
+
+
+    public function store(Request $request)
+    {
+        $formFields = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'placeName' => 'required',
+            'tips' => 'required',
+            'destination_id' => 'required',
+        ]);
+       
+        
+        $adventure = Adventure::create($formFields);
+        //  dd($request->file('image'));
+            if ($request->file('image')) {
+                foreach ($request->file('image') as $image) {
+                   
+                    $filename = date('YmdHi') . $image->getClientOriginalName();
+                    $image->move(public_path('storage/images'), $filename);
+                    $data['image'] = $filename;
+                    $path = "storage/images/" . $filename;
+            
+                    Photo::create([
+                        'url' => $path,
+                        'adventure_id'=>$adventure->id
+                    ]);
+                }
+                
+            }
+            // dd($formFields);
+            return redirect('/');
+        
     }
 
     /**
@@ -111,10 +141,7 @@ class AdvanturController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
      * Display the specified resource.
